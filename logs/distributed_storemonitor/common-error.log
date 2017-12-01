@@ -1,9 +1,0 @@
-2017-12-01 11:00:48,208 ERROR 27002 nodejs.ClusterClientNoResponseError: client no response in 84874ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
-    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (/home/xj/project/company/distributed_storeMonitor/node_modules/cluster-client/lib/leader.js:73:23)
-    at ontimeout (timers.js:471:11)
-    at tryOnTimeout (timers.js:306:5)
-    at Timer.listOnTimeout (timers.js:266:5)
-name: 'ClusterClientNoResponseError'
-pid: 27002
-hostname: xj
-

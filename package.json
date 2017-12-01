@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "egg-bin dev"
+    "dev": "egg-bin dev",
+    "start": "egg-scripts start --daemon --port=7002 --env=server --works=4",
+    "stop": "egg-scripts stop"
   },
   "repository": {
     "type": "git",
@@ -18,7 +20,9 @@
   },
   "homepage": "https://github.com/WhuWebTeam/distributed_storeMonitor#readme",
   "dependencies": {
-    "egg": "^2.0.0"
+    "egg": "^2.0.0",
+    "egg-scripts": "^2.4.0",
+    "pg-promise": "^7.3.2"
   },
   "devDependencies": {
     "egg-bin": "^4.3.6"
