@@ -1,0 +1,25 @@
+{
+  "name": "distributed_storemonitor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WhuWebTeam/distributed_storeMonitor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WhuWebTeam/distributed_storeMonitor/issues"
+  },
+  "homepage": "https://github.com/WhuWebTeam/distributed_storeMonitor#readme",
+  "dependencies": {
+    "egg": "^2.0.0"
+  },
+  "devDependencies": {
+    "egg-bin": "^4.3.6"
+  }
+}
