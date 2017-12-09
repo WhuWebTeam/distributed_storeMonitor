@@ -1,4 +1,7 @@
 module.exports = app => {
 
-    require('./router/wesine_2017_00001/home')(app);
+
+    app.get('/', 'home.testTenant');
+
+    require('./router/tenantTemplate/home')(app);
 }

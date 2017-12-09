@@ -28,6 +28,14 @@ module.exports = app => {
                 this.ctx.body = this.generateResponse(400, 'database test failed');
             }
         }
+
+        async testTenant() {
+            await this.service.tenant.newTenant('wesine_2017_00001');
+            this.ctx.body = {
+                code: 200,
+                data: 'add a new tenant successed'
+            }
+        }
     }
 
     return Home;
