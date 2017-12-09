@@ -21,12 +21,11 @@ fi
 cp -R ${router}/tenantTemplate/* ${dir}
 sed -i "s/tenantTemplate/${1}/g" `grep "tenantTemplate" -rl --include="*.js" ${dir}`
 
-echo ----------------
+
 # register tenant's url in application's url
 for url in `grep ${1} -rl --include="*.js" ${dir}`; do
     url=${url#*app}
     url=${url%.js}
-    str="require(.${url})(app)";
-    echo ${app}router.js
+    str="require('.${url}')(app);";
     sed -i "/}/i\\    ${str}"  ${app}router.js
 done
