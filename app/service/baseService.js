@@ -1,7 +1,7 @@
 /**
  * Base class of all service class releated to database table
  * @module baseService
- * @since 1.0.0 
+ * @since 1.0.0
  */
 
 
@@ -13,7 +13,7 @@ module.exports = app => {
          * @public
          * @constructor
          * @param {Object} app - egg application
-         * @since 1.0.0 
+         * @since 1.0.0
          */
         constructor(app) {
             super(app);
@@ -24,7 +24,7 @@ module.exports = app => {
          * Generate response body
          * @public
          * @method BaseService#_generateResponse
-         * @param {Number} status - status code of response 
+         * @param {Number} status - status code of response
          * @param {Object} data - response body
          * @return {Object}
          * Object with message when response code grater than 400
@@ -73,8 +73,8 @@ module.exports = app => {
          * Query opration satisfied some condition of database
          * @public
          * @method BaseService#_query
-         * @param {String} tableName - name of table waited to query 
-         * @param {Array[String]} attributes - attributes wanted to query 
+         * @param {String} tableName - name of table waited to query
+         * @param {Array[String]} attributes - attributes wanted to query
          * @param {Object} wheres - condition  when query table
          * @return {Promise<Array[Object]>}
          * Array include obect releated to table record when query
@@ -91,7 +91,7 @@ module.exports = app => {
             }
             str = str.substr(0, str.length - 2);
             str = str + ' from ' + tableName;
-        
+
             // when query without where condition(wheres is a {})
             if (JSON.stringify(wheres) === '{}') {
                 const result = await this.app.db.query(str, values);
@@ -124,7 +124,7 @@ module.exports = app => {
             const result = await this.app.db.query(str, values);
             return result;
         }
-        
+
 
         /**
          * Count opration satisfied some condition of database
@@ -150,7 +150,7 @@ module.exports = app => {
          * Update opration satisfied some condition of database
          * @public
          * @method BaseService#_update
-         * @param {String} tableName - name of table waited to oprate 
+         * @param {String} tableName - name of table waited to oprate
          * @param {Object} obj - record waited to be update in database
          * @param {Object} wheres - condition when update table record
          * @since 1.0.0
@@ -195,7 +195,7 @@ module.exports = app => {
          * Insert opration of database
          * @public
          * @method BaseService#_insert
-         * @param {String} tableName - name of table waited to be oprate 
+         * @param {String} tableName - name of table waited to be oprate
          * @param {Object} obj - record info waited to be insert into database
          * @since 1.0.0
          */
@@ -206,7 +206,7 @@ module.exports = app => {
             const values = [];
             let str = 'insert into ' + tableName + '(';
             let temp = '(';
-            
+
             // change object to array
             const entries = Object.entries(obj).filter(entry => _this._judge(entry));
             for (let i = 0; i < entries.length; i++) {
@@ -228,7 +228,7 @@ module.exports = app => {
          * Delete opration of database
          * @public
          * @method BaseService#_delete
-         * @param {String} tableName - name of table waited to oprate 
+         * @param {String} tableName - name of table waited to oprate
          * @param {Object} wheres - Condition when delete table record
          * @since 1.0.0
          */
@@ -257,7 +257,7 @@ module.exports = app => {
          * Set table attribute value to avoid parameter attack
          * @public
          * @method BaseService#setTableValue
-         * @param {Object} tableObj - object releated to database table 
+         * @param {Object} tableObj - object releated to database table
          * @param {Object} paramObj - object releated table passed from caller
          * @return {Object}
          * {} when paramObj is not exists or paramObj attributes doesn't include table attributes
@@ -265,7 +265,7 @@ module.exports = app => {
          * @since 1.0.0
          */
         formatTableValue(tableObj, paramObj) {
-            
+
             // used to store the table attributes
             const obj = {};
 
@@ -334,7 +334,7 @@ module.exports = app => {
                     attributes.push(ele);
                 }
             });
-            
+
             if (attributes.length !== 0) {
                 return attributes;
             }
@@ -351,18 +351,40 @@ module.exports = app => {
          * @return {Boolean}
          * true when parameter exists
          * false when parameter doesn't exist
-         * @since 1.0.0 
+         * @since 1.0.0
          */
         parameterExists(param) {
-                    
+
             // parameter doesn't exist
             if (param === '' || param === null || param == undefined) {
                 return false;
             }
-            
+
             // parameter exists
             return true;
-            
+
+        }
+
+
+        /**
+         * Sort object array according to object attribute
+         * @public
+         * @method BaseService#sort
+         * @param {Array[Object]} array - object array waited to sort
+         * @param {String} attrbbute - object attribute as sort attribute
+         * @param {Boolean} increase - increase flag stand for increase sort or not
+         * @return {Promise<Array[Object]>}
+         * Array[Object] sorted according to increase flag
+         * @since 1.0.0
+         */
+        sort(array, attribute, increase) {
+            return array.sort((ele1, ele2) => {
+                if (ele1[attribute] > ele2[attribute]) {
+                    return increase;
+                }
+
+                return !increase;
+            });
         }
     }
 

@@ -1,3 +1,5 @@
+
+
 module.exports = app => {
     class BaseController extends app.Controller {
 
@@ -19,7 +21,10 @@ module.exports = app => {
             }
         }
 
-        
+
+        _getCompanyName(queryString) {
+            const
+        }
     }
 
     return BaseController;
