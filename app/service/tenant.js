@@ -12,10 +12,13 @@ module.exports = app => {
             super(app);
         }
 
-        async newTenant(telantCode) {
-            const shellPath = path.join(this.app.config.path.baseDir, './database.sh');
+        async tenantUrlRegist(telantCode) {
+            const shellPath = path.join(this.app.config.path.baseDir, './urlRegister.sh');
             const std = await execFile(shellPath, [telantCode]);
-            console.log(std);
+        }
+
+        async tenantDatabaseAssigned() {
+            
         }
     }
 

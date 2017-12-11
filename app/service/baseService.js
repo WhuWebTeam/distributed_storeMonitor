@@ -1,9 +1,9 @@
 module.exports = app => {
     class BaseService extends app.Service {
 
-        // constructor(app) {
-        //     super(app);
-        // }
+        constructor(app) {
+            super(app);
+        }
 
         generateResponse(status, data) {
             status = +status;

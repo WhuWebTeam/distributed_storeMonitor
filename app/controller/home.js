@@ -30,7 +30,7 @@ module.exports = app => {
         }
 
         async testTenant() {
-            await this.service.tenant.newTenant('wesine_2017_00001');
+            await this.service.tenant.tenantUrlRegist('wesine_2017_00002');
             this.ctx.body = {
                 code: 200,
                 data: 'add a new tenant successed'
