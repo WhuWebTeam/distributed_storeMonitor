@@ -251,6 +251,119 @@ module.exports = app => {
 
             await this.app.db.query(str, values);
         }
+
+
+        /**
+         * Set table attribute value to avoid parameter attack
+         * @public
+         * @method BaseService#setTableValue
+         * @param {Object} tableObj - object releated to database table 
+         * @param {Object} paramObj - object releated table passed from caller
+         * @return {Object}
+         * {} when paramObj is not exists or paramObj attributes doesn't include table attributes
+         * Object whose all attributes are table attributes when paramObj attributes includes table attributes
+         * @since 1.0.0
+         */
+        formatTableValue(tableObj, paramObj) {
+            
+            // used to store the table attributes
+            const obj = {};
+
+            // parameter paramObj is not an object or cann't convert to object
+            if (!paramObj) {
+                return obj;
+            }
+
+            // filer attributes just releated to database
+            Object.entries(tableObj).map(tableAttri => {
+
+                // table object's attribute exists in parameter object and the value of parameter object exists
+                if (paramObj[tableAttri[0]]) {
+                    obj[tableAttri[0]] = paramObj[tableAttri[0]];
+                    return;
+                }
+
+                // table object's attribute exists in parameter object and the value of parameter object equal to false
+                if (paramObj[tableAttri[0]] === false) {
+                    obj[tableAttri[0]] = paramObj[tableAttri[0]];
+                    return;
+                }
+
+                // table object's attribute exists in parameter object and the value of parameter object equal to 0
+                if (paramObj[tableAttri[0]] === 0) {
+                    obj[tableAttri[0]] = paramObj[tableAttri[0]];
+                    return;
+                }
+            });
+            return obj;
+        }
+
+
+        /**
+         * Format attributes to table attributes
+         * @public
+         * @method BaseService#formatQueryAttributes
+         * @param {Object} tableObj -  object releated to database table
+         * @param {Array[String]} paramAttri - array includes attributes releated to database table
+         * @return {Array[String]}
+         * Array whose element all are table attributes
+         * @since 1.0.0
+         */
+        formatQueryAttributes(tableObj, paramAttri) {
+
+            // the attributes queried is just include '*'
+            if (paramAttri.length === 1 && paramAttri[0] === '*') {
+                return paramAttri;
+            }
+
+            // the attributes queried is just include 'max()'
+            if (paramAttri.length === 1 && paramAttri[0].includes('max')) {
+                return paramAttri;
+            }
+
+            // the attributes queried is just include 'min()'
+            if (paramAttri.length === 1 && paramAttri[0].includes('min')) {
+                return paramAttri;
+            }
+
+            // the attribute queried include more than one attribute
+            const attributes = [];
+            const tableAttri = Object.keys(tableObj);
+            paramAttri.map(ele => {
+                if (tableAttri.includes(ele)) {
+                    attributes.push(ele);
+                }
+            });
+            
+            if (attributes.length !== 0) {
+                return attributes;
+            }
+
+            return ['*'];
+        }
+
+
+        /**
+         * Validate parameter is whitespace or not
+         * @public
+         * @method BaseService#parameterExists
+         * @param {Object} param - parameter waited to be judged exists or not
+         * @return {Boolean}
+         * true when parameter exists
+         * false when parameter doesn't exist
+         * @since 1.0.0 
+         */
+        parameterExists(param) {
+                    
+            // parameter doesn't exist
+            if (param === '' || param === null || param == undefined) {
+                return false;
+            }
+            
+            // parameter exists
+            return true;
+            
+        }
     }
 
     return BaseService;
