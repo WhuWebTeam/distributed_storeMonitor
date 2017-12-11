@@ -5,7 +5,7 @@ module.exports = app => {
             super(app);
         }
 
-        generateResponse(status, data) {
+        _generateResponse(status, data) {
             status = +status;
             if (status >= 400) {
                 return {
@@ -18,6 +18,8 @@ module.exports = app => {
                 data
             }
         }
+
+        
     }
 
     return BaseController;
