@@ -1,10 +1,36 @@
+/**
+ * Base class of all service class releated to database table
+ * @module baseService
+ * @since 1.0.0 
+ */
+
+
 module.exports = app => {
     class BaseService extends app.Service {
 
+        /**
+         * Constructor of BaseService
+         * @public
+         * @constructor
+         * @param {Object} app - egg application
+         * @since 1.0.0 
+         */
         constructor(app) {
             super(app);
         }
 
+
+        /**
+         * Generate response body
+         * @public
+         * @method BaseService#_generateResponse
+         * @param {Number} status - status code of response 
+         * @param {Object} data - response body
+         * @return {Object}
+         * Object with message when response code grater than 400
+         * Object with response data when response code less than 400
+         * @since 1.0.0
+         */
         _generateResponse(status, data) {
             status = +status;
             if (status >= 400) {
@@ -19,6 +45,17 @@ module.exports = app => {
             }
         }
 
+
+        /**
+         * Used to filter some attribute which not undefined or null
+         * @private
+         * @method BaseService#_judge
+         * @param {Array} entry - array with two element changed from objects
+         * @return {Boolean}
+         * true when second element(or object's value) is not undefined or null
+         * false when second element(or object's value) is undefined or null
+         * @since 1.0.0
+         */
         _judge(entry) {
             if (entry[1] === false) {
                 return true;
@@ -29,42 +66,6 @@ module.exports = app => {
             } else {
                 return false;
             }
-        }
-
-
-        async _update(tableName, obj, wheres) {
-            const _this = this;
-
-            // generate query str and values
-            const values = [];
-            let str = 'update ' + tableName + ' set ';
-
-            // change object to array
-            let entries = Object.entries(obj).filter(entry => _this._judge(entry));
-            let i = 0;
-            for (; i < entries.length; i++) {
-                str = str + entries[i][0] + ' = $' + (i + 1) + ', ';
-                values.push(entries[i][1]);
-            }
-            str = str.substr(0, str.length - 2);
-
-            if(JSON.stringify(wheres) === '{}') {
-                console.log(str);
-                console.log(values);
-                await this.app.db.query(str, values);
-                return;
-            }
-
-            str = str + ' where ';
-            entries = Object.entries(wheres).filter(entry => _this._judge(entry));
-            for (let j = 0; j < entries.length; j++) {
-                str = str + entries[j][0] + ' = $' + (j + i + 1) + ' and ';
-                values.push(entries[j][1]);
-            }
-            str = str.substr(0, str.length - 5);
-            console.log(str);
-            console.log(values);
-            await this.app.db.query(str, values);
         }
 
 
@@ -146,9 +147,57 @@ module.exports = app => {
 
 
         /**
-         * 
-         * @param {*} tableName 
-         * @param {*} obj 
+         * Update opration satisfied some condition of database
+         * @public
+         * @method BaseService#_update
+         * @param {String} tableName - name of table waited to oprate 
+         * @param {Object} obj - record waited to be update in database
+         * @param {Object} wheres - condition when update table record
+         * @since 1.0.0
+         */
+        async _update(tableName, obj, wheres) {
+            const _this = this;
+
+            // generate query str and values
+            const values = [];
+            let str = 'update ' + tableName + ' set ';
+
+            // change object to array
+            let entries = Object.entries(obj).filter(entry => _this._judge(entry));
+            let i = 0;
+            for (; i < entries.length; i++) {
+                str = str + entries[i][0] + ' = $' + (i + 1) + ', ';
+                values.push(entries[i][1]);
+            }
+            str = str.substr(0, str.length - 2);
+
+            if(JSON.stringify(wheres) === '{}') {
+                console.log(str);
+                console.log(values);
+                await this.app.db.query(str, values);
+                return;
+            }
+
+            str = str + ' where ';
+            entries = Object.entries(wheres).filter(entry => _this._judge(entry));
+            for (let j = 0; j < entries.length; j++) {
+                str = str + entries[j][0] + ' = $' + (j + i + 1) + ' and ';
+                values.push(entries[j][1]);
+            }
+            str = str.substr(0, str.length - 5);
+            console.log(str);
+            console.log(values);
+            await this.app.db.query(str, values);
+        }
+
+
+        /**
+         * Insert opration of database
+         * @public
+         * @method BaseService#_insert
+         * @param {String} tableName - name of table waited to be oprate 
+         * @param {Object} obj - record info waited to be insert into database
+         * @since 1.0.0
          */
         async _insert(tableName, obj) {
             const _this = this;
