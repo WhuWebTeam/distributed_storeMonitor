@@ -17,6 +17,11 @@ module.exports = app => {
          */
         constructor(app) {
             super(app);
+
+            this.defaultReturn = {
+                flag: false,
+                data: ''
+            }
         }
 
 
@@ -385,6 +390,29 @@ module.exports = app => {
 
                 return !increase;
             });
+        }
+
+
+        /**
+         * Format result function returned 
+         * @param {Object} data - parameter watied to format 
+         * @param {Object} defaultValue - default value when parameter doesn't exist
+         * @return {Object}
+         * object with flag equals to true when data exists
+         * object with flag equals to false hen data doesn't exist
+         */
+        formatReturn(data, defaultValue) {
+            if (data) {
+                return {
+                    flag: true,
+                    data
+                }
+            }
+
+            return {
+                flag: false,
+                data: defaultValue
+            }
         }
     }
 
