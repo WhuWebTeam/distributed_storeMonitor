@@ -41,6 +41,17 @@ module.exports = app => {
 				data: 'add a new tenant successed'
 			}
 		}
+
+		async testToken() {
+			const result = await this.service.wesineSystem.getIdThroughToken('');
+
+			if (result.flag) {
+				this.ctx.body = this._generateResponse(200, { id: result.data });
+				return;
+			}
+
+			this.ctx.body = this._generateResponse(400, 'get id failed');
+		}
 	}
 
 	return Home;

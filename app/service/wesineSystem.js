@@ -11,10 +11,12 @@ module.exports = app => {
 
             this.table = {
                 id: undefined,
+                password: undefined,
                 name: undefined,
                 icon: undefined,
-                logo: undefined
-            }
+                logo: undefined,
+                token: undefined
+            };
         }
 
 
@@ -32,12 +34,66 @@ module.exports = app => {
         }
 
 
-        async _count(attribute, wheres) {
+        async getIdThroughToken(token) {
 
             try {
-                return super._count('wesineSystem', attribute, wheres);
-            }catch(error) {
-                return -1;
+                const ids = await this._query('wesineSystem', ['id'], { token });
+                return this.formatReturn(ids[0].id, '');
+            } catch (err) {
+                return this.defaultReturn;
+            }
+        }
+
+
+        async _insert(company) {
+
+            // company id or company password doesn't exist
+            if (!company.id || company.password) {
+                return false;
+            }
+
+            // company doesn't exists
+            if (await this.exists(company.id)) {
+                return false;
+            }
+
+            try {
+                await super._insert('wesineSystem', company);
+                return true;
+            } catch(err) {
+                return false;
+            }
+        }
+
+
+        async _update(company, wheres) {
+
+            // company doesn't exists
+            if (company.id && !await this.exists(company.id)) {
+                return false;
+            }
+
+            try {
+                await super._update('wesineSystem', company, wheres);
+                return true;
+            } catch (err) {
+                return false;
+            }
+        }
+
+
+        async _delete(wheres) {
+
+            // company doesn't exists
+            if (company.id && !await this.exists(company.id)) {
+                return false;
+            }
+
+            try {
+                await super._delete('wesineSystem', wheres);
+                return true;
+            } catch (err) {
+                return false;
             }
         }
     }
