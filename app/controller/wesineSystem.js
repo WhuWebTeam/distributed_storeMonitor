@@ -18,12 +18,18 @@ module.exports = app => {
         }
 
 
-        // async register() {
+        async register() {
             
-        //     const company = this.ctx.request.body;
+            const company = this.ctx.request.body;
 
-        //     if ()
-        // }        
+            // company has existed in wesine system
+            if (company.id && await this.service.wesineSystem.exists(company.id)) {
+                this.ctx.body = this._generateResponse(403, 'register a new company failed');
+                return;
+            }
+
+
+        }        
     }
 
     return WesineSystem;
