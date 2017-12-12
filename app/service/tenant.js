@@ -14,13 +14,27 @@ module.exports = app => {
             super(app);
         }
 
-        async tenantUrlRegist(telantCode) {
+        
+        async tenantUrlRegister(telantCode) {
             const shellPath = path.join(this.app.config.path.baseDir, './urlRegister.sh');
             const std = await execFile(shellPath, [telantCode]);
         }
 
-        async tenantDatabaseAssigned() {
+        
+        async tenantTableRegister(tenantCode) {
+            const shellPath = path.join(this.app.config.path.baseDir, './tableRegister.sh');
+            const std = await execFile(shellPath, [telantCode]);
+        }
 
+        
+        async tenantUrlRetrieve(tenantCode) {
+            const shellPath = path.join(this.app.config.path.baseDir, './urlRetrieve.sh');
+            const std = await execFile(shellPath, [tenantCode]);
+        }
+
+
+        async tenantTableRetrieve(tenantCode) {
+            const shellPath = path.join(this.app.config.path.baseDir, './tableRetrieve.sh');
         }
     }
 

@@ -45,7 +45,32 @@ module.exports = app => {
         }
 
 
+
+        async _query(attributes = ['*'], wheres) {
+            
+            // format query attributes and wheres' attributes
+            attributes = this.formatQueryAttributes(this.table, attributes);
+            wheres = this.formatTableValue(this.table, wheres);
+
+            // query company info through id
+            if (wheres.id && await this.exists(wheres.id)) {
+                const companies = await super._query('wesineSystem', attributes, wheres);
+                return companies[0];
+            }
+
+            // query company info through other attributes
+            try {
+                return await super._query('wesineSystem', attributes, wheres);
+            } catch (err) {
+                return [];
+            }
+        }
+
+
         async _insert(company) {
+
+            // formate company's attributes
+            company = this.formatTableValue(this.table, company);
 
             // company id or company password doesn't exist
             if (!company.id || company.password) {
@@ -68,6 +93,10 @@ module.exports = app => {
 
         async _update(company, wheres) {
 
+            // format company and wheres' attributes
+            company = this.formatTableValue(this.table, company);
+            wheres = this.formatTableValue(this.table, wheres);
+
             // company doesn't exists
             if (company.id && !await this.exists(company.id)) {
                 return false;
@@ -83,6 +112,9 @@ module.exports = app => {
 
 
         async _delete(wheres) {
+
+            // format wheres' attributes
+            wheres = this.formatTableValue(this.table, wheres);
 
             // company doesn't exists
             if (company.id && !await this.exists(company.id)) {
