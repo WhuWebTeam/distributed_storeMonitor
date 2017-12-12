@@ -45,7 +45,6 @@ module.exports = app => {
         }
 
 
-
         async _query(attributes = ['*'], wheres) {
             
             // format query attributes and wheres' attributes
@@ -55,7 +54,7 @@ module.exports = app => {
             // query company info through id
             if (wheres.id && await this.exists(wheres.id)) {
                 const companies = await super._query('wesineSystem', attributes, wheres);
-                return companies[0];
+                return companies[0] || {};
             }
 
             // query company info through other attributes
