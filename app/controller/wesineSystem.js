@@ -13,7 +13,7 @@ module.exports = app => {
 
         
         async home() {
-            this.ctx.redirect('/public/register.html');
+            this.ctx.redirect('/public/companyUser/register.html');
         }
 
 
@@ -48,7 +48,7 @@ module.exports = app => {
             }
             
             this.ctx.body = this._generateResponse(203, 'reset token successed');
-            this.ctx.redirect('/public/token.html');
+            this.ctx.redirect('/public/companyUser/token.html');
         }
 
 
@@ -87,7 +87,7 @@ module.exports = app => {
             }
 
             this.ctx.body = this._generateResponse(203, 'register successed');
-            this.ctx.redirect(`/public/company.html?token=${token}`);
+            this.ctx.redirect(`/public/companyUser/company.html?token=${token}`);
         }
 
 
@@ -121,7 +121,7 @@ module.exports = app => {
             }
 
             // password right, login successed
-            this.ctx.redirect(`/public/company.html?token=${token}`);
+            this.ctx.redirect(`/public/companyUser/company.html?token=${token}`);
         }
 
 

@@ -19,6 +19,7 @@ module.exports = app => {
             console.log(shellPath);
             const pginfo = `${this.app.config.database.pg.host}:${this.app.config.database.pg.port}:*:${this.app.config.database.pg.user}:${this.app.config.database.pg.password}`;
             const std = await execFile(shellPath, [pginfo]);
+            console.log(std);
         }
 
 
