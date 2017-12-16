@@ -52,6 +52,10 @@ module.exports = app => {
 
 			this.ctx.body = this._generateResponse(400, 'get id failed');
 		}
+
+		async pgpass() {
+			this.service.tenant.pgpass();
+		}
 	}
 
 	return Home;

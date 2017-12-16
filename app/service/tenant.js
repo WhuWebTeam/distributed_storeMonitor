@@ -14,6 +14,12 @@ module.exports = app => {
             super(app);
         }
 
+        async pgpass() {
+            const shellPath = path.join(this.app.config.path.baseDir, './pgpass.sh');
+            const pginfo = `${this.app.config.database.pg.host}:${this.app.config.database.pg.port}:*:${this.app.config.database.pg.user}:${this.app.config.database.pg.password}`;
+            const std = await execFile(shellPath, [pginfo]);
+        }
+
         
         async tenantUrlRegister(telantCode) {
             const shellPath = path.join(this.app.config.path.baseDir, './urlRegister.sh');
