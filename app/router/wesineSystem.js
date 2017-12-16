@@ -8,7 +8,7 @@ module.exports = app => {
     app.put('/api/v1/wesineSystem/token/:companyId', 'wesineSystem.resetToken'); // reset company user's token
     app.post('/api/v1/wesineSystem/sign/companySignup', 'wesineSystem.register'); // register a new company
     app.post('/api/v1/wesineSystem/sign/companySignin', 'wesineSystem.signIn'); // company user of wesine system sign in
-    app.post('/api/v1/wesineSystem/sign/companySignout', 'wesineSystem.signOut')
+    app.post('/api/v1/wesineSystem/sign/companySignout', 'wesineSystem.signOut'); // compay user sign out
     app.delete('/api/v1/wesineSystem/companyDelete', 'wesineSystem.deleteCompany'); // delete some company from wesinesystem
 }
 
