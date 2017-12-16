@@ -21,4 +21,7 @@ WITH (
 );
 ALTER TABLE public.${5}_counters
   OWNER TO wesine_lpssystem;
+
+
+
 "

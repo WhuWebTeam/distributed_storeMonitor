@@ -78,10 +78,10 @@ module.exports = app => {
                 await this.service.wesineSystem._delete({ id: company.id });
                 
                 // retrieve url from company registered failed
-                await this.service.tenant.tenantUrlRetrieve(company.id);
+                // await this.service.tenant.tenantUrlRetrieve(company.id);
                 
                 // retrieve table from company registered failed
-                await this.service.tenant.tenantTableRetrieve(company.id);
+                // await this.service.tenant.tenantTableRetrieve(company.id);
                 this.ctx.body = this._generateResponse(403, 'register failed');
                 return;
             }
