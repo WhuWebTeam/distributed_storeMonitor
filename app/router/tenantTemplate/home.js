@@ -1,7 +1,7 @@
 
 
 module.exports = app => {
-    app.get('/tenantTemplate/api/v1/home/index', 'home.index'); // index test
-    app.get('/tenantTemplate/api/v1/home/config', 'home.configTest'); // config test
-    app.get('/tenantTemplate/api/v1/home/database', 'home.databaseTest'); // database test
+    app.get('/tenantTemplate/api/v1/home/index', 'test.index'); // index test
+    app.get('/tenantTemplate/api/v1/home/config', 'test.configTest'); // config test
+    app.get('/tenantTemplate/api/v1/home/database', 'test.databaseTest'); // database test
 }

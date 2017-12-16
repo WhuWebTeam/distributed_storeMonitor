@@ -2,7 +2,7 @@ module.exports = app => {
 	
 	const BaseController = require('./baseController')(app);
 
-	class Home extends BaseController{
+	class Test extends BaseController{
 
 		constructor(app) {
 			super(app);
@@ -59,10 +59,11 @@ module.exports = app => {
 		}
 
 		async tenantTableRegister() {
+			console.log(this.ctx.url);
 			this.service.tenant.tenantTableRegister("wesine_00000");
 			this.ctx.body = this._generateResponse(200, 'create table successed');
 		}
 	}
 
-	return Home;
+	return Test;
 }

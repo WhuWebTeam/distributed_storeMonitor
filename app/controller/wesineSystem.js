@@ -56,6 +56,10 @@ module.exports = app => {
             
             const company = this.ctx.request.body;
 
+            // generate token for new register company
+            const token = Data.parse(new Date()) + company.id;
+            company.token = token;
+
             // company register wesine system
             if (!await this.service.wesineSystem._insert(company)) {
                 this.ctx.body = this._generateResponse(403, 'register failed');
@@ -63,28 +67,10 @@ module.exports = app => {
             }
 
             // register company url to system
-            // await this.service.tenant.tenantUrlRegister(company.id);
+            await this.service.tenant.tenantUrlRegister(company.id);
 
             // register company table to database
-            // await this.service.tenant.tenantTableRegister(company.id);
-
-            // generate token for new register company
-            const token = Data.parse(new Date()) + company.id;
-
-            // update company token failed
-            if (!await this.service.wesineSystem._update({ token }, { id: company.id }))
-            {
-                // delete failed register company
-                await this.service.wesineSystem._delete({ id: company.id });
-                
-                // retrieve url from company registered failed
-                // await this.service.tenant.tenantUrlRetrieve(company.id);
-                
-                // retrieve table from company registered failed
-                // await this.service.tenant.tenantTableRetrieve(company.id);
-                this.ctx.body = this._generateResponse(403, 'register failed');
-                return;
-            }
+            await this.service.tenant.tenantTableRegister(company.id);
 
             this.ctx.body = this._generateResponse(203, 'register successed');
             this.ctx.redirect(`/public/companyUser/company.html?token=${token}`);

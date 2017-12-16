@@ -367,7 +367,6 @@ module.exports = app => {
 
             // parameter exists
             return true;
-
         }
 
 
