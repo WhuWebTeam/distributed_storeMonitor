@@ -52,7 +52,7 @@ module.exports = app => {
         }
 
 
-        async registerCompany() { //-------------------- session, generate token
+        async register() { //-------------------- session, generate token
             
             const company = this.ctx.request.body;
 
@@ -122,6 +122,16 @@ module.exports = app => {
 
             // password right, login successed
             this.ctx.redirect(`/public/company.html?token=${token}`);
+        }
+
+
+        async signOut() { //-------------------------------session
+
+        }
+
+
+        async deleteCompany() {//---------------------------session
+
         }
     }
 
