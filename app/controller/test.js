@@ -2,7 +2,7 @@ module.exports = app => {
 	
 	const BaseController = require('./baseController')(app);
 
-	class Home extends BaseController{
+	class Test extends BaseController{
 
 		constructor(app) {
 			super(app);
@@ -64,5 +64,5 @@ module.exports = app => {
 		}
 	}
 
-	return Home;
+	return Test;
 }
