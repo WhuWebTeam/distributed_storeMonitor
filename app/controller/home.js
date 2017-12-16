@@ -10,12 +10,12 @@ module.exports = app => {
 		
 
 		index() {
-			this.ctx.body = this.generateResponse(200, 'index test successed');
+			this.ctx.body = this._generateResponse(200, 'index test successed');
 		}
 
 
 		configTest() {
-			this.ctx.body = this.generateResponse(200, this.app.config);
+			this.ctx.body = this._generateResponse(200, this.app.config);
 		}
 
 		queryString() {
@@ -28,9 +28,9 @@ module.exports = app => {
 			const str = 'select * from test';
 			try {
 				const tests = await this.app.db.query(str, []);
-				this.ctx.body = this.generateResponse(200, tests);
+				this.ctx.body = this._generateResponse(200, tests);
 			} catch (err) {
-				this.ctx.body = this.generateResponse(400, 'database test failed');
+				this.ctx.body = this._generateResponse(400, 'database test failed');
 			}
 		}
 
@@ -55,6 +55,12 @@ module.exports = app => {
 
 		async pgpass() {
 			this.service.tenant.pgpass();
+			this.ctx.body = this._generateResponse(200, 'pgpass successed');
+		}
+
+		async tenantTableRegister() {
+			this.service.tenant.tenantTableRegister("wesine_00000");
+			this.ctx.body = this._generateResponse(200, 'create table successed');
 		}
 	}
 
