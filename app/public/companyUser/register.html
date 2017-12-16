@@ -1,9 +1,49 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <meta char = "utf-8">
-        <title>wesine register page</title>
-    </head>
-    <body>
-        <h1 style = "text-align: center">wesine register page</h1>
-    </body>
+<head>
+	<title>login</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="libs/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/register.css">
+</head>
+<body>
+	<h1><button class="btn btn-info">signIn</button><button class="btn btn-info">signUp</button></h1>
+	<form id="signIn" style="display: none;">
+		<fieldset>
+			<legend>Sign In</legend>
+			<label>username:</label>
+			<input type="text" name="signInUsername" id="signInUsername"><br>
+			<label>password:</label>
+			<input type="text" name="SignInPassword" id="SignInPassword"><br>
+			<buuuton id="SignInSubmit" class="btn btn-info">Confirm</buuuton>
+		</fieldset>
+	</form>
+
+	<form id="signUp">
+		<fieldset>
+			<legend>Sign Up</legend>
+			<label>username:</label>
+			<input type="text" name="signUpUsername" id="signUpUsername"><br>
+			<label>password:</label>
+			<input type="text" name="signUpPassword" id="signUpPassword"><br>
+			<label>password:</label>
+			<input type="text" name="signUpPassword" id="signUppassword2"><br>
+			<label>Company name:</label>
+			<input type="text" name="name" id="name"><br>
+			<label>Img address:</label>
+			<input type="text" name="url" id="url"><br>
+			<label>Node:</label>
+			<input type="text" name="note" id="note"><br>	
+			<buuuton id="SignUpSubmit" class="btn btn-info">Confirm</buuuton>
+		</fieldset>
+	</form>
+
+	<script type="text/javascript" src="libs/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="libs/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="libs/js.cookie.min.js"></script>
+	<script type="text/javascript" src="js/func.js"></script>
+	<script type="text/javascript" src="js/register.js"></script>
+
+
+</body>
 </html>
