@@ -35,7 +35,7 @@ module.exports = app => {
 		}
 
 		async testTenant() {
-			await this.service.tenant.tenantUrlRegist('wesine_2017_00002');
+			await this.service.tenant.tenantUrlRegister('wesine_2017_00002');
 			this.ctx.body = {
 				code: 200,
 				data: 'add a new tenant successed'
@@ -54,7 +54,7 @@ module.exports = app => {
 		}
 
 		async pgpass() {
-			this.service.tenant.pgpass();
+			this.service.tenant._pgpass();
 			this.ctx.body = this._generateResponse(200, 'pgpass successed');
 		}
 
