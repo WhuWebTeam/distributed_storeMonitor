@@ -16,23 +16,21 @@ module.exports = app => {
 
         async _pgpass() {
             const shellPath = path.join(this.app.config.path.baseDir, './pgpass.sh');
-            console.log(shellPath);
             const pginfo = `${this.app.config.database.pg.host}:${this.app.config.database.pg.port}:*:${this.app.config.database.pg.user}:${this.app.config.database.pg.password}`;
-            const std = await execFile(shellPath, [pginfo]);
-            console.log(std);
+            return await execFile(shellPath, [pginfo]);
         }
 
 
         async tenantUrlRegister(telantCode) {
             const shellPath = path.join(this.app.config.path.baseDir, './urlRegister.sh');
             console.log(shellPath);
-            const std = await execFile(shellPath, [telantCode]);
+            return await execFile(shellPath, [telantCode]);
         }
 
 
         async tenantTableRegister(tenantCode) {
             const shellPath = path.join(this.app.config.path.baseDir, './tableRegister.sh');
-            
+
             // ~/.pgpass file judge exists
             await this._pgpass();
             const std = await execFile(shellPath,
@@ -54,7 +52,7 @@ module.exports = app => {
 
         async tenantTableRetrieve(tenantCode) {
             const shellPath = path.join(this.app.config.path.baseDir, './tableRetrieve.sh');
-            
+
             // ~/.pgpass file judge exists
             this._pgpass();
             const std = await execFile(shellPath,
