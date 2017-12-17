@@ -16,4 +16,8 @@ module.exports = app => {
     require('./router/1个`1/index')(app);
     require('./router/5/home')(app);
     require('./router/5/index')(app);
+    require('./router/9/home')(app);
+    require('./router/9/index')(app);
+    require('./router/a/home')(app);
+    require('./router/a/index')(app);
 }

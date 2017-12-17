@@ -206,13 +206,12 @@ function getCookie(name)
     else
         return null;
 }
-function signIn(path){
+function signIn(path,id){
     var csrf_token = getCookie('csrfToken');
 
     var url = path+csrf_token;
 
-    document.getElementById('form').setAttribute('action',url);
-    
-    return true;  //开控制台会暂停在这一步，点击开发者工具的继续按钮，即可。
+    document.getElementById(id).setAttribute('action',url);
 
+    return true;
 }

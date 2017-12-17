@@ -8,18 +8,19 @@
 </head>
 <body>
 	<h1><button class="btn btn-info">signIn</button><button class="btn btn-info">signUp</button></h1>
-	<form id="signIn" style="display: none;" method="post" onsubmit="signIn('/api/v1/wesineSystem/sign/companySignin?_csrf=')">
+
+	<form id="signIn" style="display: none;" action="" method="post" onsubmit="signIn('/api/v1/wesineSystem/sign/companySignin?_csrf=','signIn')">
 		<fieldset>
 			<legend>Sign In</legend>
 			<label>username:</label>
 			<input type="text" name="id" id="signInUsername"><br>
 			<label>password:</label>
 			<input type="text" name="password" id="SignInPassword"><br>
-			<button type="submit" class="submit btn btn-info">Confirm</button>
+			<input type="submit" class="submit btn btn-info">
 		</fieldset>
 	</form>
 
-	<form id="signUp" method="post" onsubmit="signIn('/api/v1/wesineSystem/sign/companySignup?_csrf=')">
+	<form id="signUp" method="post" action="" onsubmit="signIn('/api/v1/wesineSystem/sign/companySignup?_csrf=','signUp')">
 		<fieldset>
 			<legend>Sign Up</legend>
 			<label>username:</label>
@@ -34,7 +35,7 @@
 			<input type="text" name="icon" id="url"><br>
 			<label>Node:</label>
 			<input type="text" name="logo" id="note"><br>	
-			<button type="submit" class="submit btn btn-info">Confirm</button>
+			<input type="submit" class="submit btn btn-info">
 		</fieldset>
 	</form>
 
