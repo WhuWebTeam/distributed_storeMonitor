@@ -85,7 +85,7 @@ module.exports = app => {
          * Array include obect releated to table record when query
          * @since 1.0.0
          */
-        async _query(tableName, attributes, wheres) {
+        async __query(tableName, attributes, wheres) {
             const _this = this;
 
             // generate query str and values
@@ -143,9 +143,9 @@ module.exports = app => {
          * -1 when count table record failed
          * @since 1.0.0
          */
-        async _count(tableName, attribute, wheres) {
+        async __count(tableName, attribute, wheres) {
             attribute = 'count(' + attribute +')';
-            let count = await this.query(tableName, [attribute], wheres);
+            let count = await this.__query(tableName, [attribute], wheres);
             count = count[0] && +count[0].count || -1;
             return count;
         }
@@ -160,7 +160,7 @@ module.exports = app => {
          * @param {Object} wheres - condition when update table record
          * @since 1.0.0
          */
-        async _update(tableName, obj, wheres) {
+        async __update(tableName, obj, wheres) {
             const _this = this;
 
             // generate query str and values
@@ -204,7 +204,7 @@ module.exports = app => {
          * @param {Object} obj - record info waited to be insert into database
          * @since 1.0.0
          */
-        async _insert(tableName, obj) {
+        async __insert(tableName, obj) {
             const _this = this;
 
             // generate query str and values
@@ -237,7 +237,7 @@ module.exports = app => {
          * @param {Object} wheres - Condition when delete table record
          * @since 1.0.0
          */
-        async _delete(tableName, wheres) {
+        async __delete(tableName, wheres) {
             const _this = this;
 
             const values = [];
@@ -315,6 +315,7 @@ module.exports = app => {
          * @since 1.0.0
          */
         formatQueryAttributes(tableObj, paramAttri) {
+            console.log(paramAttri);
 
             // the attributes queried is just include '*'
             if (paramAttri.length === 1 && paramAttri[0] === '*') {

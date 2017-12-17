@@ -22,11 +22,11 @@ module.exports = app => {
 
         async exists(id) {
 
-            if(this.parameterExists(id)) {
+            if(!this.parameterExists(id)) {
                 return false;
             }
 
-            if (this._count('wesineSytem', 'id', { id }) === 1) {
+            if (await super.__count('wesinesystem', 'id', { id }) === 1) {
                 return true;
             }
 
@@ -37,7 +37,7 @@ module.exports = app => {
         async getIdThroughToken(token) {
 
             try {
-                const ids = await this._query('wesineSystem', ['id'], { token });
+                const ids = await this._query(['id'], { token });
                 return this.formatReturn(ids[0].id, '');
             } catch (err) {
                 return this.defaultReturn;
@@ -53,13 +53,13 @@ module.exports = app => {
 
             // query company info through id
             if (wheres.id && await this.exists(wheres.id)) {
-                const companies = await super._query('wesineSystem', attributes, wheres);
+                const companies = await super.__query('wesineSystem', attributes, wheres);
                 return companies[0] || {};
             }
 
             // query company info through other attributes
             try {
-                return await super._query('wesineSystem', attributes, wheres);
+                return await super.__query('wesineSystem', attributes, wheres);
             } catch (err) {
                 return [];
             }
@@ -72,7 +72,7 @@ module.exports = app => {
             company = this.formatTableValue(this.table, company);
 
             // company id or company password doesn't exist
-            if (!company.id || company.password) {
+            if (!company.id || !company.password) {
                 return false;
             }
 
@@ -82,7 +82,7 @@ module.exports = app => {
             }
 
             try {
-                await super._insert('wesineSystem', company);
+                await super.__insert('wesineSystem', company);
                 return true;
             } catch(err) {
                 return false;
@@ -102,7 +102,7 @@ module.exports = app => {
             }
 
             try {
-                await super._update('wesineSystem', company, wheres);
+                await super.__update('wesineSystem', company, wheres);
                 return true;
             } catch (err) {
                 return false;
@@ -121,7 +121,7 @@ module.exports = app => {
             }
 
             try {
-                await super._delete('wesineSystem', wheres);
+                await super.__delete('wesineSystem', wheres);
                 return true;
             } catch (err) {
                 return false;
