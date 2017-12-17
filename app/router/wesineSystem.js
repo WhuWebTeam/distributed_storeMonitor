@@ -14,6 +14,14 @@ module.exports = app => {
 
 
 
+// app.put('/api/v1/wesineSystem/token/:companyId', 'wesineSystem.resetToken'); // reset company user's token
+
+// {
+
+// }
+
+
+
 // app.post('/api/v1/wesineSystem/sign/companySignup', 'wesineSystem.register'); // register a new company
 // attributes belongs to the following object, id, password required
 // {
@@ -22,4 +30,29 @@ module.exports = app => {
 //     name,
 //     icon,
 //     logo
+// }
+
+
+
+// app.post('/api/v1/wesineSystem/sign/companySignin', 'wesineSystem.signIn'); // company user of wesine system sign in
+// id, password required
+// {
+//     id,
+//     password
+// }
+
+
+
+// app.post('/api/v1/wesineSystem/sign/companySignout', 'wesineSystem.signOut'); // compay user sign out
+// no attributes required
+// {
+
+// }
+
+
+
+// app.delete('/api/v1/wesineSystem/companyDelete', 'wesineSystem.deleteCompany'); // delete some company from wesinesystem
+// no attributes needed
+// {
+
 // }

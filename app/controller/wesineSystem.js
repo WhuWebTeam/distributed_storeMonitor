@@ -57,7 +57,7 @@ module.exports = app => {
             const company = this.ctx.request.body;
 
             // generate token for new register company
-            const token = Data.parse(new Date()) + company.id;
+            const token = Date.parse(new Date()) + company.id;
             company.token = token;
 
             // company register wesine system
