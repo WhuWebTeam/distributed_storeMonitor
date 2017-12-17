@@ -14,7 +14,7 @@ module.exports = app => {
 
 
 
-// app.post('/api/v1/wesineSystem/companyRegister', 'wesineSystem.registerCompany'); // used to register a new company
+// app.post('/api/v1/wesineSystem/sign/companySignup', 'wesineSystem.register'); // register a new company
 // attributes belongs to the following object, id, password required
 // {
 //     id,

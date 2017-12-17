@@ -76,7 +76,7 @@ module.exports = app => {
                 return false;
             }
 
-            // company doesn't exists
+            // company exists
             if (await this.exists(company.id)) {
                 return false;
             }

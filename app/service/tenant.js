@@ -54,7 +54,6 @@ module.exports = app => {
          */
         async tenantUrlRegister(telantCode) {
             const shellPath = path.join(this.app.config.path.baseDir, './urlRegister.sh');
-            console.log(shellPath);
             return await execFile(shellPath, [telantCode]);
         }
 
