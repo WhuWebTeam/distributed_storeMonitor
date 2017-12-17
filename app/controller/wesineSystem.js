@@ -72,7 +72,7 @@ module.exports = app => {
             // register company table to database
             await this.service.tenant.tenantTableRegister(company.id);
 
-            this.ctx.body = this._generateResponse(203, 'register successed');
+            // this.ctx.body = this._generateResponse(203, 'register successed');
             this.ctx.redirect(`/public/companyUser/company.html?token=${token}`);
         }
 
