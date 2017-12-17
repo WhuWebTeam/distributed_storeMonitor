@@ -6,4 +6,14 @@ module.exports = app => {
     require('./router/test')(app);
     require('./router/JjjjJjjj/home')(app);
     require('./router/JjjjJjjj/index')(app);
+    require('./router/12/home')(app);
+    require('./router/12/index')(app);
+    require('./router/123/home')(app);
+    require('./router/123/index')(app);
+    require('./router/1234/home')(app);
+    require('./router/1234/index')(app);
+    require('./router/1个`1/home')(app);
+    require('./router/1个`1/index')(app);
+    require('./router/5/home')(app);
+    require('./router/5/index')(app);
 }

@@ -30,7 +30,7 @@ label{
 input{
 	margin-left: 20px;
 }
-#SignInSubmit,#SignUpSubmit{
+.submit{
 	display: block;
 	width: 100px;
 	margin: 20px auto;
