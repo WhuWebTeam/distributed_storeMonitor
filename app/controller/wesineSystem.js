@@ -70,6 +70,15 @@ module.exports = app => {
         }
 
 
+        // Validate some company exists or not
+        async existsCompany() {
+            
+            const companyId = this.ctx.params.companyId;
+            const exists = await this.service.wesineSystem.exists(companyId);
+            this.ctx.body = this.__generateResponse(200, { exists });
+        }
+
+
         async register() { //-------------------- session
             
             const company = this.ctx.request.body;
@@ -93,12 +102,11 @@ module.exports = app => {
             // set token visible to company user
             this.__tokenShowSet(token);
 
-            // this.ctx.body = this.__generateResponse(203, 'register successed');
-            this.ctx.redirect(`/public/companyUser/company.html?token=${token}`);
+            this.ctx.redirect(`/public/companyUser/company.html`);
         }
 
 
-        async signIn() { //------------------------------ session, 
+        async signIn() {
             const company = this.ctx.request.body;
 
             // username and password left
@@ -128,12 +136,24 @@ module.exports = app => {
             }
 
             // password right, login successed
-            this.ctx.redirect(`/public/companyUser/company.html?token=${token}`);
+            this.ctx.cookies.set('token', token, {
+                Number: 3 * 24 * 60 * 60 * 1000
+            });
+            this.ctx.cookies.set('userName', companyId, 10 * 24 * 60 * 60 * 1000);
+            this.ctx.redirect(`/public/companyUser/company.html`);
         }
 
 
-        async signOut() { //-------------------------------session
+        async signOut() {
 
+            // sign out user
+            const userName = this.ctx.cookies.get('userName');
+            if (userName)  {
+                this.ctx.cookies.set('userName', null);
+            }
+
+            // redirect to home page
+            this.ctx.redierct('/');
         }
 
 

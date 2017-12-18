@@ -86,8 +86,7 @@ module.exports = app => {
 
 
 		async tokenShow1() {
-			this.__tokenShowSet('12');
-			console.log(this.app.tokenShow);
+			console.log(this.ctx.cookies);
 			this.ctx.body = this.__generateResponse(200, 'test');
 		}
 
