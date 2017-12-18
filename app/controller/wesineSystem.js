@@ -22,7 +22,7 @@ module.exports = app => {
             const id = this.ctx.params.companyId;
             const company = await this.service.wesineSystem._query({ id });
 
-            this.ctx.body = this._generateResponse(200, company);
+            this.ctx.body = this.__generateResponse(200, company);
         }
 
 
@@ -31,11 +31,11 @@ module.exports = app => {
             const company = await this.service.wesineSystem._query(['token'], { id });
 
             if (company.token) {
-                this.ctx.body = this._generateResponse(200, { token: company.token });
+                this.ctx.body = this.__generateResponse(200, { token: company.token });
                 return;
             }
 
-            this.ctx.body = this._generateResponse(400, 'get company token failed');
+            this.ctx.body = this.__generateResponse(400, 'get company token failed');
         }
 
 
@@ -43,11 +43,11 @@ module.exports = app => {
             const id = this.ctx.params.companyId;
             token = Date.parse(new Date()) + id;
             if (!await this.service.wesineSystem._update({ token }, { id })) {
-                this.ctx.body = this._generateResponse(403, 'reset token successed');
+                this.ctx.body = this.__generateResponse(403, 'reset token successed');
                 return;
             }
             
-            this.ctx.body = this._generateResponse(203, 'reset token successed');
+            this.ctx.body = this.__generateResponse(203, 'reset token successed');
             this.ctx.redirect('/public/companyUser/token.html');
         }
 
@@ -62,7 +62,7 @@ module.exports = app => {
 
             // company register wesine system
             if (!await this.service.wesineSystem._insert(company)) {
-                this.ctx.body = this._generateResponse(403, 'register failed');
+                this.ctx.body = this.__generateResponse(403, 'register failed');
                 return;
             }
 
@@ -72,7 +72,7 @@ module.exports = app => {
             // register company table to database
             await this.service.tenant.tenantTableRegister(company.id);
 
-            // this.ctx.body = this._generateResponse(203, 'register successed');
+            // this.ctx.body = this.__generateResponse(203, 'register successed');
             this.ctx.redirect(`/public/companyUser/company.html?token=${token}`);
         }
 
@@ -82,27 +82,27 @@ module.exports = app => {
 
             // username and password left
             if (!company.id || !company.password) {
-                this.ctx.body = this._generateResponse(403, 'username and password required');
+                this.ctx.body = this.__generateResponse(403, 'username and password required');
                 return;
             }
 
             // user doesn't exists
             if (!await this.service.wesineSystem.exists(company.id)) {
-                this.ctx.body = this._generateResponse(403, 'user does not exist');
+                this.ctx.body = this.__generateResponse(403, 'user does not exist');
                 return;
             }
 
             // password error
             const password = await this.service.wesineSystem._query(['password'], { id: company.id });
             if (password.password != company.password) {
-                this.ctx.body = this._generateResponse(403, 'password error');
+                this.ctx.body = this.__generateResponse(403, 'password error');
                 return;
             }
 
             let token = await this.service.wesineSystem._query(['token'], { id: companyId });
             token = token.token;
             if (!token) {
-                this.ctx.body = this._generateResponse(403, 'login failed');
+                this.ctx.body = this.__generateResponse(403, 'login failed');
                 return;
             }
 

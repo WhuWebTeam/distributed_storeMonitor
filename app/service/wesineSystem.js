@@ -22,7 +22,7 @@ module.exports = app => {
 
         async exists(id) {
 
-            if(!this.parameterExists(id)) {
+            if(!this.__parameterExists(id)) {
                 return false;
             }
 
@@ -48,8 +48,8 @@ module.exports = app => {
         async _query(attributes = ['*'], wheres) {
             
             // format query attributes and wheres' attributes
-            attributes = this.formatQueryAttributes(this.table, attributes);
-            wheres = this.formatTableValue(this.table, wheres);
+            attributes = this.__formatQueryAttributes(this.table, attributes);
+            wheres = this.__formatTableValue(this.table, wheres);
 
             // query company info through id
             if (wheres.id && await this.exists(wheres.id)) {
@@ -69,7 +69,7 @@ module.exports = app => {
         async _insert(company) {
 
             // formate company's attributes
-            company = this.formatTableValue(this.table, company);
+            company = this.__formatTableValue(this.table, company);
 
             // company id or company password doesn't exist
             if (!company.id || !company.password) {
@@ -93,8 +93,8 @@ module.exports = app => {
         async _update(company, wheres) {
 
             // format company and wheres' attributes
-            company = this.formatTableValue(this.table, company);
-            wheres = this.formatTableValue(this.table, wheres);
+            company = this.__formatTableValue(this.table, company);
+            wheres = this.__formatTableValue(this.table, wheres);
 
             // company doesn't exists
             if (company.id && !await this.exists(company.id)) {
@@ -113,7 +113,7 @@ module.exports = app => {
         async _delete(wheres) {
 
             // format wheres' attributes
-            wheres = this.formatTableValue(this.table, wheres);
+            wheres = this.__formatTableValue(this.table, wheres);
 
             // company doesn't exists
             if (company.id && !await this.exists(company.id)) {

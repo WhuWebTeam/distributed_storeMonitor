@@ -28,7 +28,7 @@ module.exports = app => {
         /**
          * Generate response body
          * @public
-         * @method BaseService#_generateResponse
+         * @method BaseService#__generateResponse
          * @param {Number} status - status code of response
          * @param {Object} data - response body
          * @return {Object}
@@ -36,7 +36,7 @@ module.exports = app => {
          * Object with response data when response code less than 400
          * @since 1.0.0
          */
-        _generateResponse(status, data) {
+        __generateResponse(status, data) {
             status = +status;
             if (status >= 400) {
                 return {
@@ -54,14 +54,14 @@ module.exports = app => {
         /**
          * Used to filter some attribute which not undefined or null
          * @private
-         * @method BaseService#_judge
+         * @method BaseService#__judge
          * @param {Array} entry - array with two element changed from objects
          * @return {Boolean}
          * true when second element(or object's value) is not undefined or null
          * false when second element(or object's value) is undefined or null
          * @since 1.0.0
          */
-        _judge(entry) {
+        __judge(entry) {
             if (entry[1] === false) {
                 return true;
             } else if (entry[1] === 0) {
@@ -109,7 +109,7 @@ module.exports = app => {
             str = str + ' where ';
 
             // change object to array
-            const entries = Object.entries(wheres).filter(entry => _this._judge(entry));
+            const entries = Object.entries(wheres).filter(entry => _this.__judge(entry));
             if (entries.length === 0) {
                 str = str.substr(0, str.length - 7);
                 const result = await this.app.db.query(str, values);
@@ -168,7 +168,7 @@ module.exports = app => {
             let str = 'update ' + tableName + ' set ';
 
             // change object to array
-            let entries = Object.entries(obj).filter(entry => _this._judge(entry));
+            let entries = Object.entries(obj).filter(entry => _this.__judge(entry));
             let i = 0;
             for (; i < entries.length; i++) {
                 str = str + entries[i][0] + ' = $' + (i + 1) + ', ';
@@ -184,7 +184,7 @@ module.exports = app => {
             }
 
             str = str + ' where ';
-            entries = Object.entries(wheres).filter(entry => _this._judge(entry));
+            entries = Object.entries(wheres).filter(entry => _this.__judge(entry));
             for (let j = 0; j < entries.length; j++) {
                 str = str + entries[j][0] + ' = $' + (j + i + 1) + ' and ';
                 values.push(entries[j][1]);
@@ -213,7 +213,7 @@ module.exports = app => {
             let temp = '(';
 
             // change object to array
-            const entries = Object.entries(obj).filter(entry => _this._judge(entry));
+            const entries = Object.entries(obj).filter(entry => _this.__judge(entry));
             for (let i = 0; i < entries.length; i++) {
                 str = str + entries[i][0] + ', ';
                 temp = temp + '$' + (i + 1) + ', ';
@@ -247,7 +247,7 @@ module.exports = app => {
                 return;
             }
             str = str + ' where ';
-            const entries = Object.entries(wheres).filter(entry => _this._judge(entry));
+            const entries = Object.entries(wheres).filter(entry => _this.__judge(entry));
             for (let i = 0; i < entries.length; i++) {
                 str = str + entries[i][0] + ' = $' + (i + 1) + ' and ';
                 values.push(entries[i][1]);
@@ -269,7 +269,7 @@ module.exports = app => {
          * Object whose all attributes are table attributes when paramObj attributes includes table attributes
          * @since 1.0.0
          */
-        formatTableValue(tableObj, paramObj) {
+        __formatTableValue(tableObj, paramObj) {
 
             // used to store the table attributes
             const obj = {};
@@ -307,15 +307,14 @@ module.exports = app => {
         /**
          * Format attributes to table attributes
          * @public
-         * @method BaseService#formatQueryAttributes
+         * @method BaseService#__formatQueryAttributes
          * @param {Object} tableObj -  object releated to database table
          * @param {Array[String]} paramAttri - array includes attributes releated to database table
          * @return {Array[String]}
          * Array whose element all are table attributes
          * @since 1.0.0
          */
-        formatQueryAttributes(tableObj, paramAttri) {
-            console.log(paramAttri);
+        __formatQueryAttributes(tableObj, paramAttri) {
 
             // the attributes queried is just include '*'
             if (paramAttri.length === 1 && paramAttri[0] === '*') {
@@ -352,14 +351,14 @@ module.exports = app => {
         /**
          * Validate parameter is whitespace or not
          * @public
-         * @method BaseService#parameterExists
+         * @method BaseService#__parameterExists
          * @param {Object} param - parameter waited to be judged exists or not
          * @return {Boolean}
          * true when parameter exists
          * false when parameter doesn't exist
          * @since 1.0.0
          */
-        parameterExists(param) {
+        __parameterExists(param) {
 
             // parameter doesn't exist
             if (param === '' || param === null || param == undefined) {
@@ -374,7 +373,7 @@ module.exports = app => {
         /**
          * Sort object array according to object attribute
          * @public
-         * @method BaseService#sort
+         * @method BaseService#__sort
          * @param {Array[Object]} array - object array waited to sort
          * @param {String} attrbbute - object attribute as sort attribute
          * @param {Boolean} increase - increase flag stand for increase sort or not
@@ -382,7 +381,7 @@ module.exports = app => {
          * Array[Object] sorted according to increase flag
          * @since 1.0.0
          */
-        sort(array, attribute, increase) {
+        __sort(array, attribute, increase) {
             return array.sort((ele1, ele2) => {
                 if (ele1[attribute] > ele2[attribute]) {
                     return increase;
@@ -390,29 +389,6 @@ module.exports = app => {
 
                 return !increase;
             });
-        }
-
-
-        /**
-         * Format result function returned 
-         * @param {Object} data - parameter watied to format 
-         * @param {Object} defaultValue - default value when parameter doesn't exist
-         * @return {Object}
-         * object with flag equals to true when data exists
-         * object with flag equals to false hen data doesn't exist
-         */
-        formatReturn(data, defaultValue) {
-            if (data) {
-                return {
-                    flag: true,
-                    data
-                }
-            }
-
-            return {
-                flag: false,
-                data: defaultValue
-            }
         }
     }
 
