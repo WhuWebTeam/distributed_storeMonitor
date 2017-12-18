@@ -26,33 +26,51 @@ module.exports = app => {
         }
 
 
-        async getToken() { //--------------------------- just first one can see
+        // Get company user's token but just one chance
+        async getToken() {
+
             const id = this.ctx.params.companyId;
             const company = await this.service.wesineSystem._query(['token'], { id });
 
-            if (company.token) {
-                this.ctx.body = this.__generateResponse(200, { token: company.token });
+            // query token code failed
+            if (!company.token) {
+                this.ctx.body = this.__generateResponse(400, 'get company token failed');
                 return;
             }
 
-            this.ctx.body = this.__generateResponse(400, 'get company token failed');
+            // token has been seen
+            if (!this.__tokenShowGet(company.token)) {
+                this.ctx.body = this.__generateResponse(400, 'token has been seen');
+                return;
+            }
+
+            // hide token code to company user and first send to user 
+            this.__tokenShowReset(company.token);
+            this.ctx.body = this.__generateResponse(200, { token: company.token });
         }
 
 
-        async resetToken() { //------------------------- generate token
+        // Reset company user's token
+        async resetToken() {
+
+            // Generate user's token code
             const id = this.ctx.params.companyId;
             token = Date.parse(new Date()) + id;
+
+            // update company user's token code failed
             if (!await this.service.wesineSystem._update({ token }, { id })) {
                 this.ctx.body = this.__generateResponse(403, 'reset token successed');
                 return;
             }
             
+            // token update successed and set visibale to user
+            this.__tokenShowSet(token);
             this.ctx.body = this.__generateResponse(203, 'reset token successed');
             this.ctx.redirect('/public/companyUser/token.html');
         }
 
 
-        async register() { //-------------------- session, generate token
+        async register() { //-------------------- session
             
             const company = this.ctx.request.body;
 
@@ -60,7 +78,7 @@ module.exports = app => {
             const token = Date.parse(new Date()) + company.id;
             company.token = token;
 
-            // company register wesine system
+            // company register failed
             if (!await this.service.wesineSystem._insert(company)) {
                 this.ctx.body = this.__generateResponse(403, 'register failed');
                 return;
@@ -71,6 +89,9 @@ module.exports = app => {
 
             // register company table to database
             await this.service.tenant.tenantTableRegister(company.id);
+
+            // set token visible to company user
+            this.__tokenShowSet(token);
 
             // this.ctx.body = this.__generateResponse(203, 'register successed');
             this.ctx.redirect(`/public/companyUser/company.html?token=${token}`);
@@ -118,6 +139,13 @@ module.exports = app => {
 
         async deleteCompany() {//---------------------------session
 
+            // register company url to system
+            await this.service.tenant.tenantUrlRetrieve(company.id);
+
+            // register company table to database
+            await this.service.tenant.tenantTableRetrieve(company.id);
+
+            this.ctx.body = this.__generateResponse(203, 'delete company user successed');
         }
     }
 

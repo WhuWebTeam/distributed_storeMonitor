@@ -74,7 +74,7 @@ module.exports = app => {
             return this.app.tokenShow[token];
         }
 
-        __validateToken() {
+        __validateToken(ctx) {
             
         }
     }
