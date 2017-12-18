@@ -10,33 +10,33 @@ window.onload = function(){
 	})
 
 
-	$('#SignInSubmit').click(function(){
-		$.ajax({
-			url:'/api/v1/wesineSystem/sign/companySignin',
-			type:'post',
-			data:{
-				'id':$('#signInUsername').val(),
-				'password':$('#SignInPassword').val()
-			},
-			success:function(){
+	// $('#SignInSubmit').click(function(){
+	// 	$.ajax({
+	// 		url:'/api/v1/wesineSystem/sign/companySignin',
+	// 		type:'post',
+	// 		data:{
+	// 			'id':$('#signInUsername').val(),
+	// 			'password':$('#SignInPassword').val()
+	// 		},
+	// 		success:function(){
 
-			}
-		})
-	})
-	$('#SignUpSubmit').click(function(){
-		$.ajax({
-			url:'/api/v1/wesineSystem/sign/companySignup',
-			type:'post',
-			data:{
-				'id':$('#signUpUsername').val(),
-			    'password':$('#signUpPassword').val(),
-			    'name':$('#name').val(),
-			    'icon':$('#url').val(),
-			    'logo':$('#note').val()
-			},
-			success:function(){
+	// 		}
+	// 	})
+	// })
+	// $('#SignUpSubmit').click(function(){
+	// 	$.ajax({
+	// 		url:'/api/v1/wesineSystem/sign/companySignup',
+	// 		type:'post',
+	// 		data:{
+	// 			'id':$('#signUpUsername').val(),
+	// 		    'password':$('#signUpPassword').val(),
+	// 		    'name':$('#name').val(),
+	// 		    'icon':$('#url').val(),
+	// 		    'logo':$('#note').val()
+	// 		},
+	// 		success:function(){
 				
-			}
-		})
-	})
+	// 		}
+	// 	})
+	// })
 }

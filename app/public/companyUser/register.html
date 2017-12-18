@@ -8,33 +8,34 @@
 </head>
 <body>
 	<h1><button class="btn btn-info">signIn</button><button class="btn btn-info">signUp</button></h1>
-	<form id="signIn" style="display: none;">
+
+	<form id="signIn" style="display: none;" action="" method="post" onsubmit="signIn('/api/v1/wesineSystem/sign/companySignin?_csrf=','signIn')">
 		<fieldset>
 			<legend>Sign In</legend>
 			<label>username:</label>
-			<input type="text" name="signInUsername" id="signInUsername"><br>
+			<input type="text" name="id" id="signInUsername"><br>
 			<label>password:</label>
-			<input type="text" name="SignInPassword" id="SignInPassword"><br>
-			<buuuton id="SignInSubmit" class="btn btn-info">Confirm</buuuton>
+			<input type="text" name="password" id="SignInPassword"><br>
+			<input type="submit" class="submit btn btn-info">
 		</fieldset>
 	</form>
 
-	<form id="signUp">
+	<form id="signUp" method="post" action="" onsubmit="signIn('/api/v1/wesineSystem/sign/companySignup?_csrf=','signUp')">
 		<fieldset>
 			<legend>Sign Up</legend>
 			<label>username:</label>
-			<input type="text" name="signUpUsername" id="signUpUsername"><br>
+			<input type="text" name="id" id="signUpUsername"><br>
 			<label>password:</label>
-			<input type="text" name="signUpPassword" id="signUpPassword"><br>
+			<input type="text" name="password" id="signUpPassword"><br>
 			<label>password:</label>
 			<input type="text" name="signUpPassword" id="signUppassword2"><br>
 			<label>Company name:</label>
 			<input type="text" name="name" id="name"><br>
 			<label>Img address:</label>
-			<input type="text" name="url" id="url"><br>
+			<input type="text" name="icon" id="url"><br>
 			<label>Node:</label>
-			<input type="text" name="note" id="note"><br>	
-			<buuuton id="SignUpSubmit" class="btn btn-info">Confirm</buuuton>
+			<input type="text" name="logo" id="note"><br>	
+			<input type="submit" class="submit btn btn-info">
 		</fieldset>
 	</form>
 
