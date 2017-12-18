@@ -157,7 +157,7 @@ module.exports = app => {
         }
 
 
-        async deleteCompany() {//---------------------------session
+        async deleteCompany() {
 
             // register company url to system
             await this.service.tenant.tenantUrlRetrieve(company.id);
