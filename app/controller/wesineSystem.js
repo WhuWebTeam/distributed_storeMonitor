@@ -102,6 +102,12 @@ module.exports = app => {
             // set token visible to company user
             this.__tokenShowSet(token);
 
+            this.ctx.cookies.set('token', token, {
+                Number: 5 * 24 * 60 * 60 * 1000 
+            });
+            this.ctx.cookies.set('userName', companyId, {
+                Number: 10 * 24 * 60 * 60 * 1000
+            });
             this.ctx.redirect(`/public/companyUser/company.html`);
         }
 
@@ -139,7 +145,9 @@ module.exports = app => {
             this.ctx.cookies.set('token', token, {
                 Number: 3 * 24 * 60 * 60 * 1000
             });
-            this.ctx.cookies.set('userName', companyId, 10 * 24 * 60 * 60 * 1000);
+            this.ctx.cookies.set('userName', companyId, {
+                Number: 10 * 24 * 60 * 60 * 1000
+            });
             this.ctx.redirect(`/public/companyUser/company.html`);
         }
 
