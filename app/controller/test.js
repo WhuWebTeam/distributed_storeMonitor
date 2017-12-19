@@ -111,7 +111,7 @@ module.exports = app => {
 			this.ctx.body = this.__generateResponse(203, 'delete table successed');
 		}
 
-		async deleteUrl() {
+		async urlDelete() {
 			console.log(await this.service.tenant.tenantUrlRetrieve('q1'));
 			this.ctx.body = this.__generateResponse(203, 'delete url successed');
 		}

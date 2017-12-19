@@ -6,7 +6,7 @@ userUrl=${baseDir}/router/${2}
 echo ${baseDir}
 echo ${userUrl}
 
-if [-d ${userUrl} ]
+if [ -d ${userUrl} ]
 then
     rm -rf ${userUrl}
 fi

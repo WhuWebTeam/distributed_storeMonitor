@@ -10,4 +10,5 @@ module.exports = app => {
     app.get('/api/v1/tokenShow1', 'test.tokenShow1');
     app.get('/api/v1/tokenShow2', 'test.tokenShow2');  
     // app.get('/api/v1/deleteUser', 'test.deleteUser');
+    app.get('/api/v1/urlDelete', 'test.urlDelete');
 }
