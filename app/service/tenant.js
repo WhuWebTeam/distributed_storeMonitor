@@ -72,7 +72,7 @@ module.exports = app => {
 
             // ~/.pgpass file judge exists
             await this._pgpass();
-            const std = await execFile(shellPath,
+            return await execFile(shellPath,
                 [
                     this.app.config.database.pg.user,
                     this.app.config.database.pg.database,
@@ -94,7 +94,7 @@ module.exports = app => {
          */
         async tenantUrlRetrieve(tenantCode) {
             const shellPath = path.join(this.app.config.path.baseDir, './urlRetrieve.sh');
-            const std = await execFile(shellPath, [tenantCode]);
+            return await execFile(shellPath, [this.app.config.path.baseDir, tenantCode]);
         }
 
 
@@ -112,7 +112,7 @@ module.exports = app => {
 
             // ~/.pgpass file judge exists
             this._pgpass();
-            const std = await execFile(shellPath,
+            return await execFile(shellPath,
                 [
                     this.app.config.database.pg.user,
                     this.app.config.database.pg.database,

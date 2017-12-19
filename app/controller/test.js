@@ -105,6 +105,16 @@ module.exports = app => {
 			console.log(this.app.tokenShow);
 			this.ctx.body = this.__generateResponse(200, 'test');
 		}
+
+		async deleteTable() {
+			console.log(await this.service.tenant.tenantTableRetrieve('q1'));
+			this.ctx.body = this.__generateResponse(203, 'delete table successed');
+		}
+
+		async deleteUrl() {
+			console.log(await this.service.tenant.tenantUrlRetrieve('q1'));
+			this.ctx.body = this.__generateResponse(203, 'delete url successed');
+		}
 	}
 
 	return Test;

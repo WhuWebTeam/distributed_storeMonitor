@@ -14,7 +14,7 @@ module.exports = app => {
     app.post('/api/v1/wesineSystem/sign/companySignin', 'wesineSystem.signIn'); // company user of wesine system sign in
     app.post('/api/v1/wesineSystem/sign/companySignout', 'wesineSystem.signOut'); // compay user sign out
 
-    app.delete('/api/v1/wesineSystem/companyDelete', 'wesineSystem.deleteCompany'); // delete some company from wesinesystem
+    app.delete('/api/v1/wesineSystem/companyDelete/:companyId', 'wesineSystem.deleteCompany'); // delete some company from wesinesystem
 }
 
 

@@ -116,7 +116,7 @@ module.exports = app => {
             wheres = this.__formatTableValue(this.table, wheres);
 
             // company doesn't exists
-            if (company.id && !await this.exists(company.id)) {
+            if (wheres.id && !await this.exists(wheres.id)) {
                 return false;
             }
 

@@ -79,9 +79,15 @@ module.exports = app => {
         }
 
 
-        async register() { //-------------------- session
+        async register() {
             
             const company = this.ctx.request.body;
+
+            // company and password doesn't exist
+            if (!company.id || !company.password) {
+                this.ctx.body = this.__generateResponse(403, 'username and password required');
+                return;
+            }
 
             // generate token for new register company
             const token = Date.parse(new Date()) + company.id;
@@ -105,7 +111,7 @@ module.exports = app => {
             this.ctx.cookies.set('token', token, {
                 Number: 5 * 24 * 60 * 60 * 1000 
             });
-            this.ctx.cookies.set('userName', companyId, {
+            this.ctx.cookies.set('userName', company.id, {
                 Number: 10 * 24 * 60 * 60 * 1000
             });
             this.ctx.redirect(`/public/companyUser/company.html`);
@@ -167,11 +173,18 @@ module.exports = app => {
 
         async deleteCompany() {
 
-            // register company url to system
-            await this.service.tenant.tenantUrlRetrieve(company.id);
+            // delete user info in system table
+            const companyId = this.ctx.params.companyId;
+            if (!await this.service.wesineSystem._delete({ id: companyId })) {
+                this.ctx.body = this.__generateResponse(403, 'delete company user failed');
+                return;
+            }
 
-            // register company table to database
-            await this.service.tenant.tenantTableRetrieve(company.id);
+            // retrieve company url to system
+            console.log(await this.service.tenant.tenantUrlRetrieve(companyId));
+
+            // retrive company table to database
+            console.log(await this.service.tenant.tenantTableRetrieve(companyId));
 
             this.ctx.body = this.__generateResponse(203, 'delete company user successed');
         }
