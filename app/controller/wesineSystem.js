@@ -181,10 +181,10 @@ module.exports = app => {
             }
 
             // retrieve company url to system
-            console.log(await this.service.tenant.tenantUrlRetrieve(companyId));
+            await this.service.tenant.tenantUrlRetrieve(companyId);
 
             // retrive company table to database
-            console.log(await this.service.tenant.tenantTableRetrieve(companyId));
+            await this.service.tenant.tenantTableRetrieve(companyId);
 
             this.ctx.body = this.__generateResponse(203, 'delete company user successed');
         }
