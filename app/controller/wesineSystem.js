@@ -105,15 +105,16 @@ module.exports = app => {
             // register company table to database
             await this.service.tenant.tenantTableRegister(company.id);
 
-            // set token visible to company user
-            this.__tokenShowSet(token);
+            // // set token visible to company user
+            // this.__tokenShowSet(token);
 
-            this.ctx.cookies.set('token', token, {
-                Number: 5 * 24 * 60 * 60 * 1000 
-            });
-            this.ctx.cookies.set('userName', company.id, {
-                Number: 10 * 24 * 60 * 60 * 1000
-            });
+            // this.ctx.cookies.set('token', token, {
+            //     Number: 5 * 24 * 60 * 60 * 1000 
+            // });
+            // this.ctx.cookies.set('userName', company.id, {
+            //     Number: 10 * 24 * 60 * 60 * 1000
+            // });
+            console.log('xxxx');
             this.ctx.redirect(`/public/companyUser/company.html`);
         }
 
